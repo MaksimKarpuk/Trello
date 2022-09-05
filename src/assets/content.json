@@ -1,0 +1,25 @@
+{
+    "links": [
+      {
+        "id": 1,
+        "text": "Рабочее пространство",
+        "href": "#workfield"
+      },
+      {
+        "id": 2,
+        "text": "Недавние",
+        "href": "#resent"
+      },
+      {
+        "id": 3,
+        "text": "В избранное",
+        "href": "#favourites"
+      },
+      {
+        "id": 4,
+        "text": "Шаблоны",
+        "href": "#templates"
+      }
+    ]
+  }
+  

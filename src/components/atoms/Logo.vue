@@ -1,17 +1,18 @@
 <template>
   <div :class="$style.wrapper">
-    <Main />
+    <img src="Logo" alt="gif">
   </div>
 </template>
 
 <script>
-import Main from "../src/components/pages/Main";
+import Logo from "../../static/images/logo.gif"
 export default {
-  components: {
-    Main,
-  },
-};
+ components: {
+    Logo,
+ }
+}
 </script>
 
 <style>
+
 </style>
