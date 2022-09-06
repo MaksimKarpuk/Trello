@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import Header from "../organisms/Header";
+import Header from "@/components/organisms/Header";
 export default {
   components: {
     Header,
@@ -11,5 +11,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" module>
+.wrapper{
+  width: 100vh;
+}
 </style>

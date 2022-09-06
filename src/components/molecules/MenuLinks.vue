@@ -17,5 +17,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" module>
+.wrapper{
+  
+}
 </style>

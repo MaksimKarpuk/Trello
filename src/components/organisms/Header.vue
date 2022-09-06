@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import AdditionalMenu from "../molecules/AdditionalMenu";
-import Logo from "../atoms/Logo";
-import MenuLinks from "../molecules/MenuLinks";
-import CreateButton from "../atoms/CreateButton";
+import AdditionalMenu from "@/components/molecules/AdditionalMenu";
+import Logo from "@/components/atoms/Logo";
+import MenuLinks from "@/components/molecules/MenuLinks";
+import CreateButton from "@/components/atoms/CreateButton";
 export default {
   components: {
     AdditionalMenu,
@@ -26,5 +26,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" module>
+.wrapper{
+display: flex;
+}
 </style>

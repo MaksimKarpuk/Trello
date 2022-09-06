@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Main from "../src/components/pages/Main";
+import Main from "@/components/pages/Main";
 export default {
   components: {
     Main,
@@ -13,5 +13,8 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" module>
+.wrapper{
+  
+}
 </style>
