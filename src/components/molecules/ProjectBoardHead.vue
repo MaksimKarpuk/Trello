@@ -18,6 +18,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" module>
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 </style>

@@ -1,12 +1,15 @@
 <template>
   <div :class="$style.wrapper">
-
+    <TaskBoardHead/>
   </div>
 </template>
 
 <script>
+import TaskBoardHead from "@/components/molecules/TaskBoardHead"
 export default {
-
+components:{
+    TaskBoardHead,
+}
 }
 </script>
 
