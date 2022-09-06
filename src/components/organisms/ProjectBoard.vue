@@ -1,20 +1,21 @@
 <template>
   <div :class="$style.wrapper">
-    <img src="Logo" alt="gif" />
+    <ProjectBoardHead />
   </div>
 </template>
 
 <script>
-import Logo from "../../static/images/logo.gif";
+import ProjectBoardHead from "@/components/molecules/ProjectBoardHead";
 export default {
   components: {
-    Logo,
+    ProjectBoardHead,
   },
 };
 </script>
 
 <style lang="scss" module>
 .wrapper {
-  display: block;
+  border: 0.1rem solid black;
+  max-height: 100vh;
 }
 </style>

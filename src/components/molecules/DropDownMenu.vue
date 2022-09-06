@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrapper">
-    <img src="#" alt="SVG" />
+    <img src="" alt="SVG" />
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrapper">
-    <img src="#" alt="SVG" />
+    <input type="text" />
   </div>
 </template>
 

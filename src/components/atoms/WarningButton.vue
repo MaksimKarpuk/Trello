@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrapper">
-    <img src="#" alt="SVG" />
+    <img src="" alt="!" />
   </div>
 </template>
 
@@ -10,6 +10,6 @@ export default {};
 
 <style lang="scss" module>
 .wrapper {
-  display: block;
+    display: block;
 }
 </style>
