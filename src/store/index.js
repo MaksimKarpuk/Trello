@@ -4,6 +4,7 @@ export default createStore({
   state: {
     boards: [],
     lists: [],
+    cards:[],
     isVisibleList: false,
   },
   getters: {
@@ -12,6 +13,12 @@ export default createStore({
     },
     getVisibleList(state) {
       return state.isVisibleList;
+    },
+    getLists(state) {
+      return state.lists;
+    },
+    getCards(state) {
+      return state.cards;
     },
   },
   mutations: {
@@ -27,8 +34,15 @@ export default createStore({
       if (text) {
         state.lists.push(text);
       }
-      console.log(state.boards);
+      console.log(state.lists);
       localStorage.setItem("lists", JSON.stringify(state.lists));
+    },
+    setCard(state, text) {
+      if (text) {
+        state.cards.push(text);
+      }
+      console.log(state.cards);
+      localStorage.setItem("cards", JSON.stringify(state.cards));
     },
   },
   actions: {},
