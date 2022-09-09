@@ -46,6 +46,7 @@ export default {
   padding: 0.4rem 0.25rem;
   max-height: 3rem;
   max-width: 100%;
+  background-color: #172b4d;
   .left {
     display: flex;
     align-items: center;

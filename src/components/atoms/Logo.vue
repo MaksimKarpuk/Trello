@@ -1,20 +1,22 @@
 <template>
   <div :class="$style.wrapper">
-    <img src="Logo" alt="gif" />
+    <img src="../../static/images/logo.gif" alt="gif" />
   </div>
 </template>
 
 <script>
-import Logo from "../../static/images/logo.gif";
-export default {
-  components: {
-    Logo,
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" module>
 .wrapper {
-  display: block;
+  max-width: 5.5rem;
+  max-height: 2rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

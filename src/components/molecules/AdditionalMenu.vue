@@ -1,6 +1,6 @@
 <template>
   <div :class="$style.wrapper">
-    <img src="#" alt="SVG" />
+    <img src="../../static/images/menu.webp" alt="SVG" />
   </div>
 </template>
 
@@ -10,6 +10,13 @@ export default {};
 
 <style lang="scss" module>
 .wrapper {
-  display: block;
+  max-width: 2rem;
+  max-height: 2rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

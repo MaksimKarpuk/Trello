@@ -1,10 +1,12 @@
 <template>
   <div :class="$style.wrapper">
-    <button :class="$style.button" @click="getVisible">Создать</button>
-  </div>
-  <div v-if="isVisible" :class="$style.create">
-    <input type="text" placeholder="Board Name" v-model="text">
-    <button @click="submit"> Create </button>
+    <div :class="$style.button">
+      <button :class="$style.button" @click="getVisible">Создать</button>
+    </div>
+    <div v-if="isVisible" :class="$style.create">
+      <input type="text" placeholder="Board Name" v-model="text" />
+      <button @click="submit">Create</button>
+    </div>
   </div>
 </template>
 
@@ -17,16 +19,16 @@ export default {
       text: "",
     };
   },
-  methods:{
+  methods: {
     ...mapMutations(["setBoard"]),
-    getVisible(){
-      this.isVisible=!this.isVisible;
+    getVisible() {
+      this.isVisible = !this.isVisible;
     },
-    submit(){
+    submit() {
       this.setBoard(this.text);
       this.text = "";
-    }
-  }
+    },
+  },
 };
 </script>
 

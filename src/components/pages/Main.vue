@@ -1,8 +1,12 @@
 <template>
   <div :class="$style.wrapper">
-    <Header />
-    <Board/>
+    <div :class="$style.header">
+      <Header />
     </div>
+    <div :class="$style.board">
+      <Board />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -17,7 +21,8 @@ export default {
 </script>
 
 <style lang="scss" module>
-.wrapper{
-  display: block;
+.wrapper {
+  padding: 0;
+  margin: 0;
 }
 </style>
