@@ -3,8 +3,8 @@
     <TaskBoardHead />
     <div :class="$style.task">
       <div :class="$style.cards">
-        <div :class="$style.card" v-for="card in getLists" :key="card">
-          {{ card }}
+        <div :class="$style.card" v-if="this.getActiveBoard.length>0">
+          {{getActiveBoard}}
           <div :class="$style.cardItem" v-for="item in getCards" :key="item">
             {{ item }}
           </div>
@@ -40,7 +40,7 @@ export default {
     TaskBoardHead,
     AddList,
   },
-  computed: mapGetters(["getVisibleList", "getLists", "getCards"]),
+  computed: mapGetters(["getVisibleList", "getLists", "getCards", "getActiveBoard"]),
   methods: {
     ...mapMutations(["setCard"]),
     getVisible() {
