@@ -32,7 +32,15 @@ export default createStore({
       if (text) {
         state.boards.push({
           name: text,
-          lists: [],
+          lists: {
+            name: "",
+            tasks: [
+              {
+                name: "",
+              },
+            ],
+            id: null,
+          },
           id: text,
         });
         state.isVisibleList = true;
@@ -42,15 +50,19 @@ export default createStore({
     },
     setList(state, text) {
       if (text) {
-        state.boards.lists.push({
-          name: text,
-          tasks: [
-            {
-              name: "",
-            },
-          ],
-          id: text,
-        });
+        if (state.isActiveBoard) {
+          for (let i = 0; i <= state.boards.length; i++) {
+            lists.push({
+              name: text,
+              tasks: [
+                {
+                  name: "",
+                },
+              ],
+              id: text,
+            });
+          }
+        }
       }
       console.log(state.boards.lists);
       localStorage.setItem("lists", JSON.stringify(state.lists));
