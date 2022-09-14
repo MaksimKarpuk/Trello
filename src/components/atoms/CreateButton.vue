@@ -4,7 +4,7 @@
       <button :class="$style.button" @click="getVisible">Создать</button>
     </div>
     <div v-if="isVisible" :class="$style.create">
-      <input type="text" placeholder="Board Name" v-model="text" />
+      <input type="text" placeholder="Имя доски" v-model="text" />
       <button @click="submit">Create</button>
     </div>
   </div>

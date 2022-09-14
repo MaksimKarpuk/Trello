@@ -2,10 +2,10 @@
   <div :class="$style.wrapper">
     <TaskBoardHead />
     <div :class="$style.task">
-      <div :class="$style.cards">
-        <div :class="$style.card" v-if="this.getActiveBoard.length>0">
-          {{getActiveBoard}}
-          <div :class="$style.cardItem" v-for="item in getCards" :key="item">
+      <div :class="$style.lists">
+        <div :class="$style.list" v-if="getActiveBoard">
+          {{ getActiveBoard.lists }}
+          <!-- <div :class="$style.cardItem" v-for="item in getCards" :key="item">
             {{ item }}
           </div>
           <div :class="$style.cardButton" @click="getVisible">Add Card</div>
@@ -15,10 +15,10 @@
               <div :class="$style.button" @click="submit">Set Card</div>
               <div :class="$style.deleteButton" @click="cutOut">Delete</div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
-      <div :class="$style.lists" v-if="getVisibleList">
+      <div :class="$style.addList">
         <AddList />
       </div>
     </div>
@@ -40,7 +40,12 @@ export default {
     TaskBoardHead,
     AddList,
   },
-  computed: mapGetters(["getVisibleList", "getLists", "getCards", "getActiveBoard"]),
+  computed: mapGetters([
+    "getVisibleList",
+    "getLists",
+    "getCards",
+    "getActiveBoard",
+  ]),
   methods: {
     ...mapMutations(["setCard"]),
     getVisible() {
@@ -56,20 +61,20 @@ export default {
 
 <style lang="scss" module>
 .wrapper {
-  border: 0.1rem solid black;
   max-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: scroll;
   width: 100%;
   background-color: rgb(147, 202, 202);
   .task {
     display: flex;
-    .cards {
-      display: flex;
-      gap: 0.5rem;
-      .card {
-        border: 0.0625rem solid white;
-        width: 15rem;
+    gap: 0.5rem;
+    .lists {
+      .list {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: nowrap;
         .cardButton {
           cursor: pointer;
         }
@@ -82,8 +87,10 @@ export default {
         }
       }
     }
-    .lists {
+    .addList {
       max-width: 18rem;
+      background-color: white;
+      border: none;
     }
   }
 }

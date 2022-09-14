@@ -2,13 +2,13 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    boards: [],
+    boards: JSON.parse(localStorage.getItem("boards")) || [],
     isVisibleList: false,
     isActiveBoard: null,
   },
   getters: {
     getActiveBoard(state) {
-      return state.boards.filter((board) => board.name === state.isActiveBoard);
+      return state.boards.find((board) => board.name === state.isActiveBoard);
     },
     getBoards(state) {
       return state.boards;
@@ -28,52 +28,39 @@ export default createStore({
       state.isActiveBoard = name;
       console.log(state.isActiveBoard);
     },
+    deleteActiveBoard(state, name) {
+      state.boards = state.boards.filter((board) => board.name !== name);
+    },
     setBoard(state, text) {
       if (text) {
         state.boards.push({
           name: text,
-          lists: {
-            name: "",
-            tasks: [
-              {
-                name: "",
-              },
-            ],
-            id: null,
-          },
-          id: text,
+          lists: [],
         });
-        state.isVisibleList = true;
+        state.isVisibleList = !state.isVisibleList;
       }
-      console.log(state.boards);
       localStorage.setItem("boards", JSON.stringify(state.boards));
     },
     setList(state, text) {
       if (text) {
-        if (state.isActiveBoard) {
-          for (let i = 0; i <= state.boards.length; i++) {
-            lists.push({
+        for (let i = 0; i <= state.boards.length; i++) {
+          if (state.isActiveBoard === state.boards[i].name) {
+            state.boards[i].lists.push({
               name: text,
-              tasks: [
-                {
-                  name: "",
-                },
-              ],
-              id: text,
+              tasks: [],
             });
           }
         }
       }
-      console.log(state.boards.lists);
-      localStorage.setItem("lists", JSON.stringify(state.lists));
+      localStorage.setItem("boards", JSON.stringify(state.boards));
     },
-    setCard(state, text) {
-      if (text) {
-        state.cards.push(text);
-      }
-      console.log(state.cards);
-      localStorage.setItem("cards", JSON.stringify(state.cards));
-    },
+    // setCard(state, text) {
+    //   if (text) {
+    //     state.cards.push(text);
+    //   }
+    //   console.log(state.cards);
+    //   localStorage.setItem("cards", JSON.stringify(state.cards));
+    // },
   },
   actions: {},
   modules: {},

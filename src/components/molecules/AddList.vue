@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.wrapper">
+  <div :class="$style.wrapper" v-show="getBoards.">
     <div :class="$style.mainButton" @click="getVisible">Add List</div>
     <div :class="$style.listInfo" v-if="isVisible">
       <input type="text" v-model="text" placeholder="Add list name" />
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -20,6 +20,7 @@ export default {
       isVisible: false,
     };
   },
+  computed: mapGetters(["getBoards"]),
   methods: {
     ...mapMutations(["setList"]),
     getVisible() {
