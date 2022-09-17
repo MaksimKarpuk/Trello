@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.wrapper" v-show="getBoards.">
+  <div :class="$style.wrapper" v-show="getBoards">
     <div :class="$style.mainButton" @click="getVisible">Add List</div>
     <div :class="$style.listInfo" v-if="isVisible">
       <input type="text" v-model="text" placeholder="Add list name" />

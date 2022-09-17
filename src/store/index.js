@@ -30,6 +30,7 @@ export default createStore({
     },
     deleteActiveBoard(state, name) {
       state.boards = state.boards.filter((board) => board.name !== name);
+      localStorage.setItem("boards", JSON.stringify(state.boards));
     },
     setBoard(state, text) {
       if (text) {
@@ -43,7 +44,7 @@ export default createStore({
     },
     setList(state, text) {
       if (text) {
-        for (let i = 0; i <= state.boards.length; i++) {
+        for (let i = 0; i < state.boards.length; i++) {
           if (state.isActiveBoard === state.boards[i].name) {
             state.boards[i].lists.push({
               name: text,

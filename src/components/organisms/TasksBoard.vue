@@ -3,19 +3,21 @@
     <TaskBoardHead />
     <div :class="$style.task">
       <div :class="$style.lists">
-        <div :class="$style.list" v-if="getActiveBoard">
+        <div :class="$style.list" v-if="getActiveBoard" @click="getVisibleButton">
           {{ getActiveBoard.lists }}
-          <!-- <div :class="$style.cardItem" v-for="item in getCards" :key="item">
-            {{ item }}
-          </div>
-          <div :class="$style.cardButton" @click="getVisible">Add Card</div>
-          <div :class="$style.cardItemInfo" v-if="isVisible">
-            <input type="text" v-model="text" placeholder="Add card name" />
-            <div :class="$style.buttons">
-              <div :class="$style.button" @click="submit">Set Card</div>
-              <div :class="$style.deleteButton" @click="cutOut">Delete</div>
+          <div>
+            <div :class="$style.cardItem" v-for="item in getCards" :key="item">
+              {{ item }}
             </div>
-          </div> -->
+            <div :class="$style.cardButton" @click="getVisible" v-show="isVisibleButton">Add Card</div>
+            <div :class="$style.cardItemInfo" v-if="isVisible">
+              <input type="text" v-model="text" placeholder="Add card name" />
+              <div :class="$style.buttons">
+                <div :class="$style.button" @click="submit">Set Card</div>
+                <div :class="$style.deleteButton" @click="cutOut">Delete</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div :class="$style.addList">
@@ -34,6 +36,7 @@ export default {
     return {
       text: "",
       isVisible: false,
+      isVisibleButton: false,
     };
   },
   components: {
@@ -50,6 +53,9 @@ export default {
     ...mapMutations(["setCard"]),
     getVisible() {
       this.isVisible = !this.isVisible;
+    },
+    getVisibleButton() {
+      this.isVisibleButton = !this.isVisibleButton;
     },
     submit() {
       this.setCard(this.text);
@@ -75,6 +81,7 @@ export default {
         display: flex;
         gap: 1rem;
         flex-wrap: nowrap;
+        cursor: pointer;
         .cardButton {
           cursor: pointer;
         }
