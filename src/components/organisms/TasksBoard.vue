@@ -3,28 +3,20 @@
     <TaskBoardHead />
     <div :class="$style.task">
       <div :class="$style.lists">
-        <div
-          :class="$style.list"
-          v-if="getActiveBoard"
-          @click="getVisibleButton"
-        >
-          {{ getActiveBoard.lists[1].name }}
-          <div>
-            <div :class="$style.cardItem" v-for="item in getCards" :key="item">
-              {{ item }}
-            </div>
-            <div
-              :class="$style.cardButton"
-              @click="getVisible"
-              v-show="isVisibleButton"
-            >
-              Add Card
-            </div>
-            <div :class="$style.cardItemInfo" v-if="isVisible">
-              <input type="text" v-model="text" placeholder="Add card name" />
-              <div :class="$style.buttons">
-                <div :class="$style.button" @click="submit">Set Card</div>
-                <div :class="$style.deleteButton" @click="cutOut">Delete</div>
+        <div :class="$style.list" v-if="getActiveBoard">
+          <div v-for="item in getActiveBoard.lists" :key="item.name" @click="setList(item.name)">
+            {{ item.name }}
+            <div :class="$style.cardItem">
+              <div :class="$style.cardButton" @click="getVisible">Add Card</div>
+              <div :class="$style.cardItemInfo" v-if="isVisible">
+                <input type="text" v-model="text" placeholder="Add card name" />
+                <div :class="$style.buttons">
+                  <div :class="$style.button" @click="submit">Set Card</div>
+                  <div :class="$style.deleteButton" @click="cutOut">Delete</div>
+                </div>
+              </div>
+              <div v-for="task in getActiveBoard.lists.tasks" :key="task.name">
+                {{ task.name }}
               </div>
             </div>
           </div>
@@ -46,20 +38,15 @@ export default {
     return {
       text: "",
       isVisible: false,
-      isVisibleButton: false,
     };
   },
   components: {
     TaskBoardHead,
     AddList,
   },
-  computed: mapGetters([
-    "getLists",
-    "getCards",
-    "getActiveBoard",
-  ]),
+  computed: mapGetters(["getLists", "getCards", "getActiveBoard"]),
   methods: {
-    ...mapMutations(["setCard"]),
+    ...mapMutations(["setTask","setActiveList"]),
     getVisible() {
       this.isVisible = !this.isVisible;
     },
@@ -67,9 +54,12 @@ export default {
       this.isVisibleButton = !this.isVisibleButton;
     },
     submit() {
-      this.setCard(this.text);
+      this.setTask(this.text);
       this.text = "";
     },
+    setList(name){
+      this.setActiveList(name);
+    }
   },
 };
 </script>
@@ -91,7 +81,6 @@ export default {
         gap: 1rem;
         flex-wrap: nowrap;
         cursor: pointer;
-        height: 3rem;
         background-color: pink;
         justify-content: center;
         align-items: center;

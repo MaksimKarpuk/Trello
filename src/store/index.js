@@ -4,10 +4,14 @@ export default createStore({
   state: {
     boards: JSON.parse(localStorage.getItem("boards")) || [],
     isActiveBoard: null,
+    isActiveList: null,
   },
   getters: {
     getActiveBoard(state) {
       return state.boards.find((board) => board.name === state.isActiveBoard);
+    },
+    getActiveList(state) {
+      return state.boards.lists;
     },
     getBoards(state) {
       return state.boards;
@@ -19,6 +23,10 @@ export default createStore({
   mutations: {
     setActiveBoard(state, name) {
       state.isActiveBoard = name;
+    },
+    setActiveList(state, name) {
+      state.isActiveList = name;
+      console.log(state.isActiveList);
     },
     deleteActiveBoard(state, name) {
       state.boards = state.boards.filter((board) => board.name !== name);
@@ -47,13 +55,19 @@ export default createStore({
       }
       localStorage.setItem("boards", JSON.stringify(state.boards));
     },
-    // setCard(state, text) {
-    //   if (text) {
-    //     state.cards.push(text);
-    //   }
-    //   console.log(state.cards);
-    //   localStorage.setItem("cards", JSON.stringify(state.cards));
-    // },
+    setTask(state, text) {
+      if (text) {
+        for (let i = 0; i < state.boards[i].lists.length; i++) {
+          if (state.isActiveList === state.boards[i].lists.name) {
+            state.boards[i].lists.tasks.push({
+              name: text,
+            });
+          }
+        }
+      }
+      console.log(state.cards);
+      localStorage.setItem("boards", JSON.stringify(state.boards));
+    },
   },
   actions: {},
   modules: {},
