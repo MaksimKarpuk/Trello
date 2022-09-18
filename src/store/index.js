@@ -3,7 +3,6 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     boards: JSON.parse(localStorage.getItem("boards")) || [],
-    isVisibleList: false,
     isActiveBoard: null,
   },
   getters: {
@@ -13,12 +12,6 @@ export default createStore({
     getBoards(state) {
       return state.boards;
     },
-    getVisibleList(state) {
-      return state.isVisibleList;
-    },
-    getLists(state) {
-      return state.boards;
-    },
     getCards(state) {
       return state.cards;
     },
@@ -26,7 +19,6 @@ export default createStore({
   mutations: {
     setActiveBoard(state, name) {
       state.isActiveBoard = name;
-      console.log(state.isActiveBoard);
     },
     deleteActiveBoard(state, name) {
       state.boards = state.boards.filter((board) => board.name !== name);

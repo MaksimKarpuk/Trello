@@ -3,13 +3,23 @@
     <TaskBoardHead />
     <div :class="$style.task">
       <div :class="$style.lists">
-        <div :class="$style.list" v-if="getActiveBoard" @click="getVisibleButton">
-          {{ getActiveBoard.lists }}
+        <div
+          :class="$style.list"
+          v-if="getActiveBoard"
+          @click="getVisibleButton"
+        >
+          {{ getActiveBoard.lists[1].name }}
           <div>
             <div :class="$style.cardItem" v-for="item in getCards" :key="item">
               {{ item }}
             </div>
-            <div :class="$style.cardButton" @click="getVisible" v-show="isVisibleButton">Add Card</div>
+            <div
+              :class="$style.cardButton"
+              @click="getVisible"
+              v-show="isVisibleButton"
+            >
+              Add Card
+            </div>
             <div :class="$style.cardItemInfo" v-if="isVisible">
               <input type="text" v-model="text" placeholder="Add card name" />
               <div :class="$style.buttons">
@@ -44,7 +54,6 @@ export default {
     AddList,
   },
   computed: mapGetters([
-    "getVisibleList",
     "getLists",
     "getCards",
     "getActiveBoard",
@@ -82,6 +91,10 @@ export default {
         gap: 1rem;
         flex-wrap: nowrap;
         cursor: pointer;
+        height: 3rem;
+        background-color: pink;
+        justify-content: center;
+        align-items: center;
         .cardButton {
           cursor: pointer;
         }
