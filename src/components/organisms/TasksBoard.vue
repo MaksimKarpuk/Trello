@@ -1,37 +1,50 @@
 <template>
   <div :class="$style.wrapper">
-    <TaskBoardHead />
-    <div :class="$style.task">
-      <div :class="$style.lists">
-        <div :class="$style.list" v-if="getActiveBoard">
-          <div v-for="item in getActiveBoard.lists" :key="item.name" @click="setList(item.name)">
+    <div :class="$style.lists">
+      <div :class="$style.listsItem" v-if="getActiveBoard">
+        <div
+          v-for="item in getActiveBoard.lists"
+          :key="item.name"
+          @click="setList(item.name)"
+          :class="$style.list"
+        >
+          <div :class="$style.listTitle">
             {{ item.name }}
-            <div :class="$style.cardItem">
-              <div :class="$style.cardButton" @click="getVisible">Add Card</div>
-              <div :class="$style.cardItemInfo" v-if="isVisible">
-                <input type="text" v-model="text" placeholder="Add card name" />
-                <div :class="$style.buttons">
-                  <div :class="$style.button" @click="submit">Set Card</div>
-                  <div :class="$style.deleteButton" @click="cutOut">Delete</div>
+            <div :class="$style.deleteList">x</div>
+          </div>
+          <div :class="$style.tasks">
+            <div :class="$style.addTastButton" @click="getVisible">
+              Add Card
+            </div>
+            <div
+              :class="$style.taskInput"
+              v-if="isVisible && $store.state.isActiveList === item.name"
+            >
+              <input type="text" v-model="text" placeholder="Add card name" />
+              <div :class="$style.taskButtons">
+                <div :class="$style.setTaskButton" @click="submit">
+                  Set Task
+                </div>
+                <div :class="$style.deleteTaskButton" @click="cutOut">
+                  Delete Task
                 </div>
               </div>
-              <div v-for="task in getActiveBoard.lists.tasks" :key="task.name">
-                {{ task.name }}
-              </div>
+            </div>
+            <div v-for="task in item.tasks" :key="task.name">
+              {{ task.name }}
             </div>
           </div>
         </div>
       </div>
-      <div :class="$style.addList">
-        <AddList />
-      </div>
+    </div>
+    <div :class="$style.addList">
+      <AddList />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import TaskBoardHead from "@/components/molecules/TaskBoardHead";
 import AddList from "@/components/molecules/AddList";
 export default {
   data() {
@@ -41,56 +54,53 @@ export default {
     };
   },
   components: {
-    TaskBoardHead,
     AddList,
   },
-  computed: mapGetters(["getLists", "getCards", "getActiveBoard"]),
+  computed: mapGetters(["getActiveBoard"]),
   methods: {
-    ...mapMutations(["setTask","setActiveList"]),
+    ...mapMutations(["setTask", "setActiveList"]),
     getVisible() {
       this.isVisible = !this.isVisible;
-    },
-    getVisibleButton() {
-      this.isVisibleButton = !this.isVisibleButton;
     },
     submit() {
       this.setTask(this.text);
       this.text = "";
     },
-    setList(name){
+    setList(name) {
       this.setActiveList(name);
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss" module>
 .wrapper {
-  max-height: 100vh;
+  max-height: 100%;
   display: flex;
-  flex-direction: column;
+  gap: 1rem;
   overflow: scroll;
   width: 100%;
-  background-color: rgb(147, 202, 202);
-  .task {
-    display: flex;
-    gap: 0.5rem;
-    .lists {
+  background-color: rgb(49, 184, 162);
+  padding: 1rem;
+  .lists {
+    .listsItem {
+      display: flex;
+      gap: 1rem;
       .list {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: nowrap;
-        cursor: pointer;
-        background-color: pink;
+        background-color: white;
+        width: 25rem;
         justify-content: center;
         align-items: center;
-        .cardButton {
-          cursor: pointer;
-        }
-        .cardItemInfo {
-          .buttons {
-            .button {
-              cursor: pointer;
+        cursor: pointer;
+        .tasks {
+          .addTastButton {
+          }
+          .taskInput {
+            .taskButtons {
+              .setTaskButton {
+              }
+              .deleteTaskButton {
+              }
             }
           }
         }

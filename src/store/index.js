@@ -57,15 +57,19 @@ export default createStore({
     },
     setTask(state, text) {
       if (text) {
-        for (let i = 0; i < state.boards[i].lists.length; i++) {
-          if (state.isActiveList === state.boards[i].lists.name) {
-            state.boards[i].lists.tasks.push({
-              name: text,
-            });
+        for (let i = 0; i < state.boards.length; i++) {
+          if (state.isActiveBoard === state.boards[i].name) {
+            for (let j = 0; j < state.boards[i].lists.length; j++) {
+              if (state.isActiveList === state.boards[i].lists[j].name) {
+                state.boards[i].lists[j].tasks.push({
+                  name: text,
+                });
+              }
+            }
           }
         }
       }
-      console.log(state.cards);
+      console.log(state.boards[0].lists);
       localStorage.setItem("boards", JSON.stringify(state.boards));
     },
   },
