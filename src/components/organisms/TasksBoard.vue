@@ -10,7 +10,7 @@
         >
           <div :class="$style.listTitle">
             {{ item.name }}
-            <div :class="$style.deleteList">x</div>
+            <div :class="$style.deleteList" @click="deleteList(item.name)">x</div>
           </div>
           <div :class="$style.tasks">
             <div :class="$style.addTastButton" @click="getVisible">
@@ -58,7 +58,7 @@ export default {
   },
   computed: mapGetters(["getActiveBoard"]),
   methods: {
-    ...mapMutations(["setTask", "setActiveList"]),
+    ...mapMutations(["setTask", "setActiveList","delteListItem"]),
     getVisible() {
       this.isVisible = !this.isVisible;
     },
@@ -68,6 +68,9 @@ export default {
     },
     setList(name) {
       this.setActiveList(name);
+    },
+    deleteList(name) {
+      this.delteListItem(name);
     },
   },
 };
@@ -88,10 +91,18 @@ export default {
       gap: 1rem;
       .list {
         background-color: white;
-        width: 25rem;
+        width: 20rem;
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        .listTitle{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1rem;
+          background-color: rgb(233, 163, 163);
+          font-size: 1.5rem;
+        }
         .tasks {
           .addTastButton {
           }

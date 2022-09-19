@@ -55,6 +55,14 @@ export default createStore({
       }
       localStorage.setItem("boards", JSON.stringify(state.boards));
     },
+    delteListItem(state, name) {
+      for (let i = 0; i < state.boards.length; i++) {
+        if (state.isActiveBoard === state.boards[i].name) {
+          state.boards[i].lists = state.boards[i].lists.filter((list) => list.name !== name);
+        }
+      }
+    },
+
     setTask(state, text) {
       if (text) {
         for (let i = 0; i < state.boards.length; i++) {
