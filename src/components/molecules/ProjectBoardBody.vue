@@ -9,7 +9,7 @@
         @click="createActiveBoard(board.name)"
       >
         {{ board.name }}
-        <div :class="deleteButton" @click="deleteBoard(board.name)">х</div>
+        <div :class="deleteButton" @click="deleteBoard(board.name)">&#10006;</div>
       </div>
     </div>
   </div>
@@ -45,13 +45,12 @@ export default {
       justify-content: space-between;
       align-items: center;
       gap: 2rem;
-      background-color: blue;
+      background-color: rgb(42, 42, 197);
       font-size: 1.5rem;
       cursor: pointer;
       padding: 0.5rem;
     }
     .deleteButton {
-      border: 00.0625rem solid white;
     }
   }
 }

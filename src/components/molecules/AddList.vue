@@ -1,12 +1,9 @@
 <template>
   <div :class="$style.wrapper" v-show="getBoards.length">
-    <div :class="$style.mainButton" @click="getVisible">Add List</div>
+    <div :class="$style.mainButton" @click="getVisible">Добавить лист</div>
     <div :class="$style.listInfo" v-if="isVisible">
-      <input type="text" v-model="text" placeholder="Add list name" />
-      <div :class="$style.buttons">
-        <div :class="$style.button" @click="submit">Set List</div>
-        <div :class="$style.deleteButton" @click="cutOut">Delete</div>
-      </div>
+      <input type="text" v-model="text" placeholder="Имя листа" />
+      <div :class="$style.button" @click="submit">Установить лист</div>
     </div>
   </div>
 </template>
@@ -38,18 +35,37 @@ export default {
 .wrapper {
   .mainButton {
     cursor: pointer;
-    border: 0.0625rem solid black;
+    background-color: white;
     text-align: center;
-    width: 18rem;
+    padding: 1rem 8rem;
+    border-radius: 0.5rem;
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem 0;
   }
   .listInfo {
-    display: flex;
-    .buttons {
+    max-width: 24rem;
+    input {
+      width: 100%;
+      height: 2rem;
+      outline: none;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      margin: 0 0 0.5rem 0;
+    }
+    .button {
+      cursor: pointer;
+      max-width: 25rem;
+      width: 100%;
+      height: 3.8rem;
+      text-align: center;
+      vertical-align: middle;
+      background-color: white;
+      border-radius: 0.5rem;
+      font-size: 1.2rem;
       display: flex;
-      gap: 1rem;
-      .button {
-        cursor: pointer;
-      }
+      justify-content: center;
+      align-items: center;
     }
   }
 }
