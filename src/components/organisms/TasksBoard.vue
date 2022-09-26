@@ -7,6 +7,9 @@
           :key="item.name"
           @click="setList(item.name)"
           :class="$style.list"
+          @drop="onDrop($event, item.id)"
+          @dragover.prevent
+          @dragenter.prevent
         >
           <div :class="$style.listTitle">
             {{ item.name }}
@@ -23,12 +26,16 @@
               v-if="isVisible && $store.state.isActiveList === item.name"
             >
               <input type="text" v-model="text" placeholder="Имя задания" />
-              <div :class="$style.setTaskButton" @click="submit">Set Task</div>
+              <div :class="$style.setTaskButton" @click="submit">
+                Установить дазание
+              </div>
             </div>
             <div
               v-for="task in item.tasks"
               :key="task.name"
               :class="$style.task"
+              @dragstart="onDragStart($event, task)"
+              draggable="true"
             >
               {{ task.name }}
             </div>
@@ -71,6 +78,20 @@ export default {
     deleteList(name) {
       this.delteListItem(name);
     },
+    onDragStart(e, task) {
+      e.dataTransfer.dropEffect = "move";
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("itemId", task.id.toString());
+    },
+    onDrop(e, itemsId) {
+      const itemId = parseInt(e.dataTransfer.getData("itemId"));
+      this.items = this.items.map((x) => {
+        if (x.id === itemId) {
+          x.categoryId = itemsId;
+        }
+        return x;
+      });
+    }
   },
 };
 </script>
@@ -137,6 +158,7 @@ export default {
               display: flex;
               justify-content: center;
               align-items: center;
+              margin: 0 0 0.5rem 0;
             }
           }
           .task {

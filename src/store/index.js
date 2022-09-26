@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import { v4 as uuidv4 } from "uuid";
 
 export default createStore({
   state: {
@@ -36,9 +37,13 @@ export default createStore({
       if (text) {
         state.boards.push({
           name: text,
+          id: uuidv4(),
           lists: [],
         });
         state.isVisibleList = !state.isVisibleList;
+        for (let i = 0; i < state.boards.length; i++) {
+          console.log(state.boards[i].id);
+        }
       }
       localStorage.setItem("boards", JSON.stringify(state.boards));
     },
@@ -48,17 +53,22 @@ export default createStore({
           if (state.isActiveBoard === state.boards[i].name) {
             state.boards[i].lists.push({
               name: text,
+              id: uuidv4(),
               tasks: [],
             });
           }
+          for (let j = 0; j < state.boards[i].lists.length; j++) {
+          console.log(state.boards[i].lists[j].id);
         }
       }
       localStorage.setItem("boards", JSON.stringify(state.boards));
-    },
+    }},
     delteListItem(state, name) {
       for (let i = 0; i < state.boards.length; i++) {
         if (state.isActiveBoard === state.boards[i].name) {
-          state.boards[i].lists = state.boards[i].lists.filter((list) => list.name !== name);
+          state.boards[i].lists = state.boards[i].lists.filter(
+            (list) => list.name !== name
+          );
         }
       }
     },
@@ -71,7 +81,12 @@ export default createStore({
               if (state.isActiveList === state.boards[i].lists[j].name) {
                 state.boards[i].lists[j].tasks.push({
                   name: text,
+                  id: uuidv4(),
+                  taskID: state.boards[i].lists[j].id,
                 });
+              }
+              for (let k = 0; k < state.boards[i].lists[j].tasks.length; k++) {
+                console.log(state.boards[i].lists[j].tasks[k].id);
               }
             }
           }
