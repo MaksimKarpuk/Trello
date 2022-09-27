@@ -18,7 +18,7 @@
             </div>
           </div>
           <div :class="$style.tasks">
-            <div :class="$style.addTastButton" @click="getVisible">
+            <div :class="$style.addTastButton" @click="getVisible(item.name)">
               Добавить задание
             </div>
             <div
@@ -62,11 +62,13 @@ export default {
   components: {
     AddList,
   },
-  computed: mapGetters(["getActiveBoard"]),
+  computed: mapGetters(["getActiveBoard", "getisActiveList"]),
   methods: {
-    ...mapMutations(["setTask", "setActiveList", "delteListItem"]),
-    getVisible() {
-      this.isVisible = !this.isVisible;
+    ...mapMutations(["setTask", "setActiveList", "delteListItem", "moveTask"]),
+    getVisible(name) {
+      if (name === this.getisActiveList) {
+        this.isVisible = !this.isVisible;
+      }
     },
     submit() {
       this.setTask(this.text);
@@ -81,17 +83,12 @@ export default {
     onDragStart(e, task) {
       e.dataTransfer.dropEffect = "move";
       e.dataTransfer.effectAllowed = "move";
-      e.dataTransfer.setData("itemId", task.id.toString());
+      e.dataTransfer.setData("taskId", task.id);
     },
-    onDrop(e, itemsId) {
-      const itemId = parseInt(e.dataTransfer.getData("itemId"));
-      this.items = this.items.map((x) => {
-        if (x.id === itemId) {
-          x.categoryId = itemsId;
-        }
-        return x;
-      });
-    }
+    onDrop(e, listId) {
+      const taskId = e.dataTransfer.getData("taskId");
+      this.moveTask({ listId, taskId });
+    },
   },
 };
 </script>
