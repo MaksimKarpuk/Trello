@@ -3,8 +3,8 @@
     <div :class="$style.lists">
       <div :class="$style.listsItem" v-if="getActiveBoard">
         <div
-          v-for="item in getActiveBoard.lists"
-          :key="item.name"
+          v-for="item in $store.getters.getLists"
+          :key="item.id"
           @click="setList(item.name)"
           :class="$style.list"
           @drop="onDrop($event, item.id)"
@@ -31,8 +31,10 @@
               </div>
             </div>
             <div
-              v-for="task in item.tasks"
-              :key="task.name"
+              v-for="task in $store.getters.getTasks.filter(
+                (i) => i.listName === item.listName
+              )"
+              :key="task.id"
               :class="$style.task"
               @dragstart="onDragStart($event, task)"
               draggable="true"
@@ -64,7 +66,7 @@ export default {
   },
   computed: mapGetters(["getActiveBoard", "getisActiveList"]),
   methods: {
-    ...mapMutations(["setTask", "setActiveList", "delteListItem", "moveTask"]),
+    ...mapMutations(["setTask", "setActiveList", "deleteListItem", "moveTask"]),
     getVisible(name) {
       if (name === this.getisActiveList) {
         this.isVisible = !this.isVisible;
@@ -78,7 +80,7 @@ export default {
       this.setActiveList(name);
     },
     deleteList(name) {
-      this.delteListItem(name);
+      this.deleteListItem(name);
     },
     onDragStart(e, task) {
       e.dataTransfer.dropEffect = "move";

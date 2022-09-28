@@ -1,11 +1,11 @@
 <template>
   <div :class="$style.wrapper">
     <div :class="$style.button">
-      <button :class="$style.button" @click="getVisible">Создать</button>
+      <div :class="$style.createButton" @click="getVisible">Создать</div>
     </div>
     <div v-if="isVisible" :class="$style.create">
       <input type="text" placeholder="Имя доски" v-model="text" />
-      <button @click="submit">Create</button>
+      <div @click="submit" :class="$style.button">Добавить</div>
     </div>
   </div>
 </template>
@@ -34,6 +34,26 @@ export default {
 
 <style lang="scss" module>
 .wrapper {
-  display: block;
+  display: flex;
+  gap: 1rem;
+  .button {
+    .createButton {
+      padding: 0.6rem 3rem;
+      background-color: rgb(255, 255, 255);
+      border-radius: 0.2rem;
+    }
+  }
+  .create {
+    display: flex;
+    gap: 1rem;
+    input{
+      text-align: center;
+    }
+    .button {
+      padding: 0.6rem 3rem;
+      background-color: rgb(2, 252, 56);
+      border-radius: 0.2rem;
+    }
+  }
 }
 </style>

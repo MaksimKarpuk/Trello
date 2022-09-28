@@ -36,6 +36,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  .text{
+    font-size: 1.5rem;
+  }
   .board {
     display: flex;
     flex-direction: column;
@@ -45,10 +48,11 @@ export default {
       justify-content: space-between;
       align-items: center;
       gap: 2rem;
-      background-color: rgb(42, 42, 197);
+      background-color: rgb(74, 49, 212);
       font-size: 1.5rem;
       cursor: pointer;
       padding: 0.5rem;
+      border-radius: 0.2rem;
     }
     .deleteButton {
     }
