@@ -5,15 +5,15 @@
         <div
           v-for="item in $store.getters.getLists"
           :key="item.id"
-          @click="setList(item.name)"
+          @click="madeActiveList(item.name)"
           :class="$style.list"
-          @drop="onDrop($event, item.id)"
+          @drop="onDrop($event, item.name)"
           @dragover.prevent
           @dragenter.prevent
         >
           <div :class="$style.listTitle">
             {{ item.name }}
-            <div :class="$style.deleteList" @click="deleteList(item.name)">
+            <div :class="$style.deleteList" @click="deleteList(item.id)">
               &#10006;
             </div>
           </div>
@@ -27,12 +27,12 @@
             >
               <input type="text" v-model="text" placeholder="Имя задания" />
               <div :class="$style.setTaskButton" @click="submit">
-                Установить дазание
+                Установить задание
               </div>
             </div>
             <div
               v-for="task in $store.getters.getTasks.filter(
-                (i) => i.listName === item.listName
+                (i) => i.listName === item.name
               )"
               :key="task.id"
               :class="$style.task"
@@ -76,20 +76,20 @@ export default {
       this.setTask(this.text);
       this.text = "";
     },
-    setList(name) {
+    madeActiveList(name) {
       this.setActiveList(name);
     },
-    deleteList(name) {
-      this.deleteListItem(name);
+    deleteList(id) {
+      this.deleteListItem(id);
     },
     onDragStart(e, task) {
       e.dataTransfer.dropEffect = "move";
       e.dataTransfer.effectAllowed = "move";
       e.dataTransfer.setData("taskId", task.id);
     },
-    onDrop(e, listId) {
+    onDrop(e, listName) {
       const taskId = e.dataTransfer.getData("taskId");
-      this.moveTask({ listId, taskId });
+      this.moveTask({ listName, taskId });
     },
   },
 };
@@ -142,6 +142,7 @@ export default {
               border-radius: 0.5rem;
               font-size: 1rem;
               margin: 0 0 0.5rem 0;
+              text-align: center;
             }
 
             .setTaskButton {

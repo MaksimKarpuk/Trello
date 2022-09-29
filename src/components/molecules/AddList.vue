@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.wrapper" v-show="getBoards.length">
+  <div :class="$style.wrapper" v-show="$store.getters.getActiveBoard">
     <div :class="$style.mainButton" @click="getVisible">Добавить лист</div>
     <div :class="$style.listInfo" v-if="isVisible">
       <input type="text" v-model="text" placeholder="Имя листа" />
@@ -52,6 +52,7 @@ export default {
       border-radius: 0.5rem;
       font-size: 1rem;
       margin: 0 0 0.5rem 0;
+      text-align: center;
     }
     .button {
       cursor: pointer;

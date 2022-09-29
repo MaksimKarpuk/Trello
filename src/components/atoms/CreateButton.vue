@@ -41,18 +41,20 @@ export default {
       padding: 0.6rem 3rem;
       background-color: rgb(255, 255, 255);
       border-radius: 0.2rem;
+      cursor: pointer;
     }
   }
   .create {
     display: flex;
     gap: 1rem;
-    input{
+    input {
       text-align: center;
     }
     .button {
       padding: 0.6rem 3rem;
       background-color: rgb(2, 252, 56);
       border-radius: 0.2rem;
+      cursor: pointer;
     }
   }
 }

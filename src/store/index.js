@@ -38,17 +38,18 @@ export default createStore({
       state.isActiveList = name;
     },
     setBoard(state, text) {
-      if (text) {
+      if (text && state.boards.filter((x) => x.name === text).length === 0) {
         state.boards.push({
           name: text,
           id: uuidv4(),
         });
+        console.log(state.boards);
         state.isVisibleList = !state.isVisibleList;
       }
       localStorage.setItem("boards", JSON.stringify(state.boards));
     },
-    deleteActiveBoard(state, name) {
-      state.boards = state.boards.filter((board) => board.name !== name);
+    deleteActiveBoard(state, id) {
+      state.boards = state.boards.filter((board) => board.id !== id);
       localStorage.setItem("boards", JSON.stringify(state.boards));
     },
     setList(state, text) {
@@ -62,8 +63,8 @@ export default createStore({
       console.log(state.lists);
       localStorage.setItem("lists", JSON.stringify(state.lists));
     },
-    deleteListItem(state, name) {
-      state.lists = state.lists.filter((list) => list.name !== name);
+    deleteListItem(state, id) {
+      state.lists = state.lists.filter((list) => list.id !== id);
       localStorage.setItem("lists", JSON.stringify(state.lists));
     },
     setTask(state, text) {
@@ -78,7 +79,7 @@ export default createStore({
       console.log(state.tasks);
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
-    moveTask(state, { taskId, listName }) {
+    moveTask(state, { listName, taskId }) {
       state.tasks = state.tasks.map((task) =>
         task.id === taskId ? { ...task, listName: listName } : task
       );

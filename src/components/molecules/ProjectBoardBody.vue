@@ -5,11 +5,11 @@
       <div
         :class="$style.boardItem"
         v-for="board in getBoards"
-        :key="board"
+        :key="board.id"
         @click="createActiveBoard(board.name)"
       >
         {{ board.name }}
-        <div :class="deleteButton" @click="deleteBoard(board.name)">&#10006;</div>
+        <div :class="deleteButton" @click="deleteBoard(board.id)">&#10006;</div>
       </div>
     </div>
   </div>
@@ -24,8 +24,8 @@ export default {
     createActiveBoard(name) {
       this.setActiveBoard(name);
     },
-    deleteBoard(name){
-      this.deleteActiveBoard(name);
+    deleteBoard(id){
+      this.deleteActiveBoard(id);
     },
   },
 };
