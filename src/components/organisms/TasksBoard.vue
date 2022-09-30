@@ -40,6 +40,9 @@
               draggable="true"
             >
               {{ task.name }}
+              <div :class="$style.deleteTask" @click="deleteTask(task.id)">
+                &#10006;
+              </div>
             </div>
           </div>
         </div>
@@ -66,7 +69,13 @@ export default {
   },
   computed: mapGetters(["getActiveBoard", "getisActiveList"]),
   methods: {
-    ...mapMutations(["setTask", "setActiveList", "deleteListItem", "moveTask"]),
+    ...mapMutations([
+      "setTask",
+      "setActiveList",
+      "deleteListItem",
+      "moveTask",
+      "deleteTaskItem",
+    ]),
     getVisible(name) {
       if (name === this.getisActiveList) {
         this.isVisible = !this.isVisible;
@@ -81,6 +90,9 @@ export default {
     },
     deleteList(id) {
       this.deleteListItem(id);
+    },
+    deleteTask(id) {
+      this.deleteTaskItem(id);
     },
     onDragStart(e, task) {
       e.dataTransfer.dropEffect = "move";

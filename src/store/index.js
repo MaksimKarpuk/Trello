@@ -79,6 +79,10 @@ export default createStore({
       console.log(state.tasks);
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
+    deleteTaskItem(state, id) {
+      state.tasks = state.tasks.filter((x) => x.id !== id);
+      localStorage.setItem("tasks", JSON.stringify(state.tasks));
+    },
     moveTask(state, { listName, taskId }) {
       state.tasks = state.tasks.map((task) =>
         task.id === taskId ? { ...task, listName: listName } : task
