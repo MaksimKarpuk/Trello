@@ -31,8 +31,8 @@ export default createStore({
     getisActiveList(state) {
       return state.isActiveList;
     },
-    getActiveTask (state){
-      return state.tasks.find((task)=>task.id===state.isActiveTaskId)
+    getActiveTask(state) {
+      return state.tasks.find((task) => task.id === state.isActiveTaskId);
     },
   },
   mutations: {
@@ -79,6 +79,8 @@ export default createStore({
           id: uuidv4(),
           boardName: state.isActiveBoard,
           listName: state.isActiveList,
+          description: null,
+          mark: null,
         });
       }
       console.log(state.tasks);
@@ -97,6 +99,14 @@ export default createStore({
       state.isActiveTaskId = id;
       console.log(state.isActiveTaskId);
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
+    },
+    setDescription(state, text) {
+      for (let i = 0; i <= state.tasks.length; i++) {
+        if (state.tasks[i].id === state.isActiveTaskId) {
+          state.tasks[i].description = text;
+          console.log(state.tasks[i].description);
+        }
+      }
     },
   },
 

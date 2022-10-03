@@ -115,7 +115,7 @@ export default {
 
 <style lang="scss" module>
 .wrapper {
-  max-height: 100%;
+  max-width: 100%;
   display: flex;
   gap: 1rem;
   overflow: scroll;

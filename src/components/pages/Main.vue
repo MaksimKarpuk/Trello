@@ -7,7 +7,7 @@
       <Board />
     </div>
     <div :class="$style.popup">
-      <Popup/>
+      <Popup />
     </div>
   </div>
 </template>
@@ -20,20 +20,20 @@ export default {
   components: {
     Header,
     Board,
-    Popup
+    Popup,
   },
 };
 </script>
 
 <style lang="scss" module>
 .wrapper {
-  padding: 0;
-  margin: 0;
-  .popup{
+  position: relative;
+  .popup {
     position: absolute;
-    top: 15rem;
-    left: 40rem;
-    transition-duration: 1s;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
   }
 }
 </style>

@@ -14,7 +14,8 @@ export default {
 </script>
 
 <style lang="scss" module>
-.wrapper{
-  
+body{
+  padding: 0;
+  margin: 0;
 }
 </style>
