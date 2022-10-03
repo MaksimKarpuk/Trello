@@ -8,6 +8,8 @@ export default createStore({
     tasks: JSON.parse(localStorage.getItem("tasks")) || [],
     isActiveBoard: null,
     isActiveList: null,
+    isActiveTaskId: null,
+    isVisiblePopup: false,
   },
   getters: {
     getActiveBoard(state) {
@@ -28,6 +30,9 @@ export default createStore({
     },
     getisActiveList(state) {
       return state.isActiveList;
+    },
+    getActiveTask (state){
+      return state.tasks.find((task)=>task.id===state.isActiveTaskId)
     },
   },
   mutations: {
@@ -87,6 +92,11 @@ export default createStore({
       state.tasks = state.tasks.map((task) =>
         task.id === taskId ? { ...task, listName: listName } : task
       );
+    },
+    setChosenTask(state, id) {
+      state.isActiveTaskId = id;
+      console.log(state.isActiveTaskId);
+      localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
   },
 

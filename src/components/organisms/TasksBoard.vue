@@ -38,6 +38,8 @@
               :class="$style.task"
               @dragstart="onDragStart($event, task)"
               draggable="true"
+              @click="[setActiveTask(task.id), $store.state.isVisiblePopup=true]"
+              
             >
               {{ task.name }}
               <div :class="$style.deleteTask" @click="deleteTask(task.id)">
@@ -75,6 +77,7 @@ export default {
       "deleteListItem",
       "moveTask",
       "deleteTaskItem",
+      "setChosenTask"
     ]),
     getVisible(name) {
       if (name === this.getisActiveList) {
@@ -103,6 +106,9 @@ export default {
       const taskId = e.dataTransfer.getData("taskId");
       this.moveTask({ listName, taskId });
     },
+    setActiveTask(id){
+      this.setChosenTask(id);
+    }
   },
 };
 </script>
