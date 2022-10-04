@@ -34,6 +34,13 @@ export default createStore({
     getActiveTask(state) {
       return state.tasks.find((task) => task.id === state.isActiveTaskId);
     },
+    getDescription(state) {
+      for (let i = 0; i < state.tasks.length; i++) {
+        if (state.tasks[i].id === state.isActiveTaskId) {
+          return state.tasks[i].description;
+        }
+      }
+    },
   },
   mutations: {
     setActiveBoard(state, name) {
@@ -79,7 +86,7 @@ export default createStore({
           id: uuidv4(),
           boardName: state.isActiveBoard,
           listName: state.isActiveList,
-          description: null,
+          description: [],
           mark: null,
         });
       }
@@ -101,15 +108,38 @@ export default createStore({
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
     setDescription(state, text) {
-      for (let i = 0; i <= state.tasks.length; i++) {
+      if (text) {
+        for (let i = 0; i < state.tasks.length; i++) {
+          if (state.tasks[i].id === state.isActiveTaskId) {
+            state.tasks[i].description.push(text);
+            console.log(state.tasks[i].description);
+            localStorage.setItem("tasks", JSON.stringify(state.tasks));
+          }
+        }
+      }
+    },
+    filterDescription(state, text) {
+      for (let i = 0; i < state.tasks.length; i++) {
         if (state.tasks[i].id === state.isActiveTaskId) {
-          state.tasks[i].description = text;
-          console.log(state.tasks[i].description);
+          state.tasks[i].description = state.tasks[i].description.filter(
+            (x) => x !== text
+          );
+          localStorage.setItem("tasks", JSON.stringify(state.tasks));
+        }
+      }
+    },
+    madeMark(state, text) {
+      if (text) {
+        for (let i = 0; i < state.tasks.length; i++) {
+          if (state.tasks[i].id === state.isActiveTaskId) {
+            state.tasks[i].mark = text;
+            console.log(state.tasks[i]);
+            localStorage.setItem("tasks", JSON.stringify(state.tasks));
+          }
         }
       }
     },
   },
-
   actions: {},
   modules: {},
 });
