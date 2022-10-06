@@ -1,12 +1,13 @@
 <template>
-  <div :class="$style.wrapper" v-if="$store.state.isVisiblePopup === true">
-    <div :class="$style.popup">
+  <div
+    :class="$style.wrapper"
+    v-if="$store.state.isVisiblePopup === true"
+    @click="setUnvisiblePopUp()"
+  >
+    <div :class="$style.popup" @click.stop>
       <div :class="$style.header">
         {{ getActiveTask.name }}
-        <div
-          :class="$style.closePopup"
-          @click="$store.state.isVisiblePopup = false"
-        >
+        <div :class="$style.closePopup" @click="setUnvisiblePopUp()">
           &#10006;
         </div>
       </div>
@@ -47,6 +48,7 @@
               {{ mark.value }}
             </option>
           </select>
+          <div :class="$style.selectedMark">{{ getMark }}</div>
           <div :class="$style.save" @click="addMark(selected)">Сохранить</div>
         </div>
       </div>
@@ -75,13 +77,27 @@ export default {
       ],
     };
   },
-  computed: mapGetters(["getActiveTask", "getDescription"]),
+  computed: mapGetters(["getActiveTask", "getDescription","getMark"]),
 
   mounted() {
     console.log(this.getActiveTask);
+    document.addEventListener("keydown", this.handleKeydown);
+  },
+  beforeUnmount() {
+    document.removeEventListener("keydown", this.handleKeydown);
   },
   methods: {
-    ...mapMutations(["setDescription", "filterDescription", "madeMark"]),
+    ...mapMutations([
+      "setDescription",
+      "filterDescription",
+      "madeMark",
+      "makeUnvisiblePopUp",
+    ]),
+    handleKeydown(e) {
+      if (this.isVisible && e.key === "Escape") {
+        this.setUnvisiblePopUp();
+      }
+    },
     addDescription() {
       this.setDescription(this.text);
       this.text = "";
@@ -92,6 +108,9 @@ export default {
     addMark(text) {
       this.madeMark(text);
       this.selected = "";
+    },
+    setUnvisiblePopUp() {
+      this.makeUnvisiblePopUp();
     },
   },
 };
@@ -147,6 +166,7 @@ export default {
         .buttons {
           display: flex;
           gap: 1rem;
+          margin: 0 0 1rem 0;
           .save {
             padding: 0.5rem 3rem;
             background-color: aqua;

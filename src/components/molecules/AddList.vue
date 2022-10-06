@@ -2,7 +2,7 @@
   <div :class="$style.wrapper" v-show="$store.getters.getActiveBoard">
     <div :class="$style.mainButton" @click="getVisible">Добавить лист</div>
     <div :class="$style.listInfo" v-if="isVisible">
-      <input type="text" v-model="text" placeholder="Имя листа" />
+      <input type="text" v-model="text" placeholder="Имя листа" v-on:keyup.enter="submit"/>
       <div :class="$style.button" @click="submit">Установить лист</div>
     </div>
   </div>

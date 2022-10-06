@@ -6,7 +6,7 @@ export default createStore({
     boards: JSON.parse(localStorage.getItem("boards")) || [],
     lists: JSON.parse(localStorage.getItem("lists")) || [],
     tasks: JSON.parse(localStorage.getItem("tasks")) || [],
-    isActiveBoard: null,
+    isActiveBoard: JSON.parse(localStorage.getItem("activeBoards")) || null,
     isActiveList: null,
     isActiveTaskId: null,
     isVisiblePopup: false,
@@ -41,10 +41,24 @@ export default createStore({
         }
       }
     },
+    getMark(state) {
+      for (let i = 0; i < state.tasks.length; i++) {
+        if (state.tasks[i].id === state.isActiveTaskId) {
+          return state.tasks[i].mark;
+        }
+      }
+    },
   },
   mutations: {
+    makeVisiblePopUp(state){
+      state.isVisiblePopup = true;
+    },
+    makeUnvisiblePopUp(state){
+      state.isVisiblePopup = false;
+    },
     setActiveBoard(state, name) {
       state.isActiveBoard = name;
+      localStorage.setItem("activeBoards", JSON.stringify(state.isActiveBoard));
     },
     setActiveList(state, name) {
       state.isActiveList = name;
@@ -108,6 +122,7 @@ export default createStore({
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
     setDescription(state, text) {
+      console.log();
       if (text) {
         for (let i = 0; i < state.tasks.length; i++) {
           if (state.tasks[i].id === state.isActiveTaskId) {

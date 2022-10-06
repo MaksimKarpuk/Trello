@@ -4,7 +4,12 @@
       <div :class="$style.createButton" @click="getVisible">Создать</div>
     </div>
     <div v-if="isVisible" :class="$style.create">
-      <input type="text" placeholder="Имя доски" v-model="text" />
+      <input
+        type="text"
+        placeholder="Имя доски"
+        v-model="text"
+        v-on:keyup.enter="submit"
+      />
       <div @click="submit" :class="$style.button">Добавить</div>
     </div>
   </div>

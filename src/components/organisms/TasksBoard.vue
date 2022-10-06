@@ -25,7 +25,7 @@
               :class="$style.taskInput"
               v-if="isVisible && $store.state.isActiveList === item.name"
             >
-              <input type="text" v-model="text" placeholder="Имя задания" />
+              <input type="text" v-model="text" placeholder="Имя задания" v-on:keyup.enter="submit"/>
               <div :class="$style.setTaskButton" @click="submit">
                 Установить задание
               </div>
@@ -38,7 +38,7 @@
               :class="$style.task"
               @dragstart="onDragStart($event, task)"
               draggable="true"
-              @click="[setActiveTask(task.id), $store.state.isVisiblePopup=true]"
+              @click="[setActiveTask(task.id), setVisiblePopUp()]"
               
             >
               {{ task.name }}
@@ -77,7 +77,8 @@ export default {
       "deleteListItem",
       "moveTask",
       "deleteTaskItem",
-      "setChosenTask"
+      "setChosenTask",
+      "makeVisiblePopUp",
     ]),
     getVisible(name) {
       if (name === this.getisActiveList) {
@@ -108,7 +109,10 @@ export default {
     },
     setActiveTask(id){
       this.setChosenTask(id);
-    }
+    },
+    setVisiblePopUp() {
+      this.makeVisiblePopUp();
+    },
   },
 };
 </script>
