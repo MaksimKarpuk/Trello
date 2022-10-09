@@ -30,6 +30,7 @@
             :class="$style.descriptionText"
             v-for="text in getDescription"
             :key="text"
+            contenteditable="true"
           >
             {{ text }}
             <div
