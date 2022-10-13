@@ -50,10 +50,10 @@ export default createStore({
     },
   },
   mutations: {
-    makeVisiblePopUp(state){
+    makeVisiblePopUp(state) {
       state.isVisiblePopup = true;
     },
-    makeUnvisiblePopUp(state){
+    makeUnvisiblePopUp(state) {
       state.isVisiblePopup = false;
     },
     setActiveBoard(state, name) {
@@ -115,6 +115,7 @@ export default createStore({
       state.tasks = state.tasks.map((task) =>
         task.id === taskId ? { ...task, listName: listName } : task
       );
+      localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
     setChosenTask(state, id) {
       state.isActiveTaskId = id;
