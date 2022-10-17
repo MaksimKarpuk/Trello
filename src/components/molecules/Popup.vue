@@ -33,7 +33,7 @@
           >
             {{ text }}
             <div :class="$style.descriptionButtons">
-              <div :class="$style.changeDescription" @click="changeDescription">
+              <div :class="$style.changeDescription" @click="changeDescription(text)">
                 &#9998;
               </div>
               <div
@@ -43,7 +43,7 @@
                 &#10006;
               </div>
             </div>
-            <div :class="$style.changeInput" v-if="isVisibleChanges">
+            <div :class="$style.changeInput" v-if="text === isVisibleInput">
               <input type="text" v-model="newText" />
               <div
                 :class="$style.saveNewDescription"
@@ -80,6 +80,7 @@ export default {
       selected: "",
       isVisible: false,
       isVisibleChanges: false,
+      isVisibleInput: null,
       marks: [
         { value: 1, id: 1 },
         { value: 2, id: 2 },
@@ -96,7 +97,6 @@ export default {
   computed: mapGetters(["getActiveTask", "getDescription", "getMark"]),
 
   mounted() {
-    console.log(this.getActiveTask);
     document.addEventListener("keydown", this.handleKeydown);
   },
   beforeUnmount() {
@@ -109,6 +109,7 @@ export default {
       "madeMark",
       "makeUnvisiblePopUp",
       "updateDescription",
+      "openChangeInput"
     ]),
     handleKeydown(e) {
       if (this.isVisible && e.key === "Escape") {
@@ -133,14 +134,15 @@ export default {
       this.makeUnvisiblePopUp();
       this.isVisible = false;
     },
-    changeDescription() {
+    changeDescription(text) {
       this.isVisibleChanges = true;
+      this.isVisibleInput = text;
     },
     setNewDescription(text) {
       if (this.newText) {
         this.updateDescription({ newText: this.newText, text });
       }
-      this.isVisibleChanges = false;
+      this.newText = "";
     },
   },
 };

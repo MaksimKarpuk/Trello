@@ -153,13 +153,14 @@ export default createStore({
       }
     },
     updateDescription(state, { text, newText }) {
-      console.log(text);
       if (text) {
         for (let i = 0; i < state.tasks.length; i++) {
           if (state.tasks[i].id === state.isActiveTaskId) {
-            state.tasks[i].description = state.tasks[i].description.map((x) => {
-              x === text ? (x = newText) : x;
-            });
+            for (let j = 0; j < state.tasks[i].description.length; j++) {
+              if (state.tasks[i].description[j] === text) {
+                state.tasks[i].description[j] = newText;
+              }
+            }
           }
         }
       }
