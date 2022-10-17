@@ -30,14 +30,27 @@
             :class="$style.descriptionText"
             v-for="text in getDescription"
             :key="text"
-            contenteditable="true"
           >
             {{ text }}
-            <div
-              :class="$style.deleteDescription"
-              @click="deleteDescription(text)"
-            >
-              &#10006;
+            <div :class="$style.descriptionButtons">
+              <div :class="$style.changeDescription" @click="changeDescription">
+                &#9998;
+              </div>
+              <div
+                :class="$style.deleteDescription"
+                @click="deleteDescription(text)"
+              >
+                &#10006;
+              </div>
+            </div>
+            <div :class="$style.changeInput" v-if="isVisibleChanges">
+              <input type="text" v-model="newText" />
+              <div
+                :class="$style.saveNewDescription"
+                @click="setNewDescription(text)"
+              >
+                &#10004;
+              </div>
             </div>
           </div>
         </div>
@@ -63,8 +76,10 @@ export default {
   data() {
     return {
       text: "",
+      newText: "",
       selected: "",
       isVisible: false,
+      isVisibleChanges: false,
       marks: [
         { value: 1, id: 1 },
         { value: 2, id: 2 },
@@ -78,7 +93,7 @@ export default {
       ],
     };
   },
-  computed: mapGetters(["getActiveTask", "getDescription","getMark"]),
+  computed: mapGetters(["getActiveTask", "getDescription", "getMark"]),
 
   mounted() {
     console.log(this.getActiveTask);
@@ -93,6 +108,7 @@ export default {
       "filterDescription",
       "madeMark",
       "makeUnvisiblePopUp",
+      "updateDescription",
     ]),
     handleKeydown(e) {
       if (this.isVisible && e.key === "Escape") {
@@ -100,8 +116,11 @@ export default {
       }
     },
     addDescription() {
-      this.setDescription(this.text);
-      this.text = "";
+      if (this.text) {
+        this.setDescription(this.text);
+        this.text = "";
+        this.isVisible = false;
+      }
     },
     deleteDescription(text) {
       this.filterDescription(text);
@@ -112,6 +131,16 @@ export default {
     },
     setUnvisiblePopUp() {
       this.makeUnvisiblePopUp();
+      this.isVisible = false;
+    },
+    changeDescription() {
+      this.isVisibleChanges = true;
+    },
+    setNewDescription(text) {
+      if (this.newText) {
+        this.updateDescription({ newText: this.newText, text });
+      }
+      this.isVisibleChanges = false;
     },
   },
 };
@@ -187,7 +216,21 @@ export default {
           justify-content: space-between;
           align-items: center;
           padding: 0.5rem 1rem;
-          .deleteDescription {
+          .descriptionButtons {
+            display: flex;
+            gap: 0.5rem;
+            .deleteDescription {
+              cursor: pointer;
+            }
+            .changeDescription {
+              cursor: pointer;
+            }
+          }
+        }
+        .changeInput {
+          display: flex;
+          justify-content: space-between;
+          .saveNewDescription {
             cursor: pointer;
           }
         }

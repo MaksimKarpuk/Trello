@@ -119,16 +119,13 @@ export default createStore({
     },
     setChosenTask(state, id) {
       state.isActiveTaskId = id;
-      console.log(state.isActiveTaskId);
       localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
     setDescription(state, text) {
-      console.log();
       if (text) {
         for (let i = 0; i < state.tasks.length; i++) {
           if (state.tasks[i].id === state.isActiveTaskId) {
             state.tasks[i].description.push(text);
-            console.log(state.tasks[i].description);
             localStorage.setItem("tasks", JSON.stringify(state.tasks));
           }
         }
@@ -154,6 +151,19 @@ export default createStore({
           }
         }
       }
+    },
+    updateDescription(state, { text, newText }) {
+      console.log(text);
+      if (text) {
+        for (let i = 0; i < state.tasks.length; i++) {
+          if (state.tasks[i].id === state.isActiveTaskId) {
+            state.tasks[i].description = state.tasks[i].description.map((x) => {
+              x === text ? (x = newText) : x;
+            });
+          }
+        }
+      }
+      localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
   },
   actions: {},
